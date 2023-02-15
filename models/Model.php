@@ -11,7 +11,7 @@
         public function find(array $params);
     }
 
-    abstract class Model implements ModelInterface {
+    abstract class Model extends Db implements ModelInterface {
         
         protected $table;
         protected $dates;//to define columns expecting date value
@@ -25,10 +25,7 @@
         //establish connection for the model to query the DB
         function __construct () {
             try {
-                $this->pdo = new PDO(
-                    "mysql:hosts=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASSWORD,
-                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
-                );
+                $this->pdo = $this->getDbConnection();
             } catch (Exception $e) {
                 trigger_error($e->getMessage());
             }
@@ -36,11 +33,14 @@
 
         //close connection
         function __destruct () {
-            if ($this->stmt!==null) { 
-                $this->stmt = null; 
-            }
-            if ($this->pdo!==null) { 
-                $this->pdo = null; 
+            //THIS SHOULD BE UPDATED SINCE SINCE EACH CONNECTION HAS ITS WAY OF CLOSING CONNECTION
+            if ($this->isDefaultDbConnection()) {
+                if ($this->stmt!==null) {
+                    $this->stmt = null;
+                }
+                if ($this->pdo!==null) {
+                    $this->pdo = null;
+                }
             }
         }
 
@@ -174,6 +174,38 @@
                 $sth->execute($params);
             }
             return $sth;
+        }
+    }
+
+    class Db {
+
+        private $connection;
+        private $is_default_db_connection = true;
+
+        public function isDefaultDbConnection(): bool {
+            return $this->is_default_db_connection;
+        }
+
+        public function getDbConnection() {
+            if ($this->connection) {
+                return $this->connection;
+            }
+            return $this->getDefaultDbConnection();
+        }
+
+        public function setDbConnection($connection) {
+            $this->is_default_db_connection = false;
+            $this->connection = $connection;
+        }
+
+        public function getDefaultDbConnection() {
+            return new PDO(
+                "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASSWORD,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]
+            );
         }
     }
 ?>
