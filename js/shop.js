@@ -1,7 +1,6 @@
 $(document).ready(function () {
-    const prod_on_cart = [];
     $.ajax({
-        url: "controllers/products.php",
+        url: "controllers/index_controller.php?func=get_products",
         method: 'GET',
         success: function (products) {
             let html = "";
@@ -52,7 +51,7 @@ $(document).ready(function () {
         $('li.cart-item.item-' + id).remove();
         _countCartItems();
         $.ajax({
-            url: "controllers/get_product.php?product_id=" + id,
+            url: "controllers/index_controller.php?func=get_product&product_id=" + id,
             method: 'GET',
             success: function (res) {
                 if (typeof res === 'object') {
@@ -78,7 +77,7 @@ $(document).ready(function () {
         data['description'] = document.getElementById("desc").value;
         data['price'] = parseFloat(document.getElementById("price").value);
         $.ajax({
-            url: "controllers/add_product.php",
+            url: "controllers/index_controller.php?func=create_product",
             method: 'POST',
             data: data,
             success: function (res) {
@@ -111,7 +110,7 @@ $(document).ready(function () {
 
     function _addToCart(item_id = 0) {
         $.ajax({
-            url: "controllers/add_to_cart.php",
+            url: "controllers/index_controller.php?func=add_to_cart",
             method: 'POST',
             data: {item_id: item_id, user_id: 1},
             success: function (res) {

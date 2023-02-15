@@ -24,10 +24,14 @@
         
         //establish connection for the model to query the DB
         function __construct () {
-            $this->pdo = new PDO(
-                "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASSWORD,
-                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
-            );
+            try {
+                $this->pdo = new PDO(
+                    "mysql:hosts=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET, DB_USER, DB_PASSWORD,
+                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
+                );
+            } catch (Exception $e) {
+                trigger_error($e->getMessage());
+            }
         }
 
         //close connection
@@ -40,7 +44,7 @@
             }
         }
 
-        public function getTableName() {
+        public function getTableName(): string {
             if ($this->table) {
                 return $this->table;
             }
