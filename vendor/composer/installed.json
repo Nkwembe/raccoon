@@ -1,0 +1,63 @@
+{
+    "packages": [
+        {
+            "name": "eftec/routeone",
+            "version": "1.27",
+            "version_normalized": "1.27.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EFTEC/RouteOne.git",
+                "reference": "05c9135bb159529c97b521d98dfc1f853d3d6f20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EFTEC/RouteOne/zipball/05c9135bb159529c97b521d98dfc1f853d3d6f20",
+                "reference": "05c9135bb159529c97b521d98dfc1f853d3d6f20",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7.27"
+            },
+            "time": "2023-02-15T11:34:00+00:00",
+            "bin": [
+                "lib/routeonecli"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "eftec\\routeone\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jorge Patricio Castro Castillo",
+                    "email": "jcastro@eftec.cl"
+                }
+            ],
+            "description": "Router service class for PHP",
+            "homepage": "https://github.com/EFTEC/RouteOne",
+            "keywords": [
+                "mvc",
+                "php",
+                "route",
+                "router"
+            ],
+            "support": {
+                "issues": "https://github.com/EFTEC/RouteOne/issues",
+                "source": "https://github.com/EFTEC/RouteOne/tree/1.27"
+            },
+            "install-path": "../eftec/routeone"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

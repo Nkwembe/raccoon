@@ -1,0 +1,5 @@
+{
+    "require": {
+        "eftec/routeone": "^1.27"
+    }
+}

@@ -1,6 +1,7 @@
 $(document).ready(function () {
+    /*
     $.ajax({
-        url: "controllers/index_controller.php?func=get_products",
+        url: "/Product/Products",
         method: 'GET',
         success: function (products) {
             let html = "";
@@ -26,7 +27,7 @@ $(document).ready(function () {
     }).done(function () {
         console.log('done');
     });
-
+*/
     $(document).on('click', '.addToCart', function (e) {
         e.preventDefault();
         let id = e.currentTarget.getAttribute('data-id');
